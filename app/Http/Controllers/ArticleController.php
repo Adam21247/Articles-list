@@ -45,7 +45,6 @@ class ArticleController extends Controller
         $article->title = $input['title'];
         $article->summary = $input['summary'];
         $article->content = $input['content'];
-        $article->created_at = $input['created_at'];
         $article->save();
 
         return redirect('articles');

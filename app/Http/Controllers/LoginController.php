@@ -12,9 +12,6 @@ class LoginController extends Controller
         return view("auth.login");
     }
 
-    public function loginUser(LoginRequest $request){
-        //TODO
-    }
 
 
 }

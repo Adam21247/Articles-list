@@ -16,14 +16,14 @@
         <div class="col-md-4 col-md-offset-4" style="margin-top: 20px;">
             <h4>Registration</h4>
             <hr>
-            @include('flash::message')
+{{--            @include('flash::message')--}}
 
-            <form action="{{route('register-user')}}" method="post">
-                @if(session()->has('success'))
-                    <div class="alert alert-success">{{session()->get('success')}}</div>
-                @elseif(session()->has('fail'))
-                    <div class="alert alert-danger">{{session()->get('fail')}}</div>
-                @endif
+{{--            <form action="{{route('register-user')}}" method="post">--}}
+{{--                @if(session()->has('success'))--}}
+{{--                    <div class="alert alert-success">{{session()->get('success')}}</div>--}}
+{{--                @elseif(session()->has('fail'))--}}
+{{--                    <div class="alert alert-danger">{{session()->get('fail')}}</div>--}}
+{{--                @endif--}}
                 @csrf
 
                 <div class="form-group">

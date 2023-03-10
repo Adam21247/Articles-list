@@ -32,10 +32,12 @@ class RegistrationController extends Controller
         $res = $this->registrationService->save($input);
 
 
-        if ($res) {
-            flash(trans('validation.confirm_registration'))->success();
+
+        if (!$res) {
+            return view(trans('validation.reject_registration'));
         } else {
-            flash(trans('validation.reject_registration'))->fail();
+            return redirect('login')->with('success','You have been registered');
         }
     }
 }
+

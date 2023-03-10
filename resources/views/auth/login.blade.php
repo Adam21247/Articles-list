@@ -16,8 +16,14 @@
         <div class="col-md-4 col-md-offset-4" style="margin-top: 20px;">
             <h4>Login</h4>
             <hr>
-            @include('flash::message')
-            <form action="{{route('login-user')}}" method="post">
+
+
+        @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
                 @csrf
 
                 <div class="form-group">
