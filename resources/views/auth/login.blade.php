@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="text" class="form-control" placeholder="Enter Password"
+                    <input type="password" class="form-control" placeholder="Enter Password"
                            name="password" value="{{old('password')}}">
                     <span class="text-danger">@error('password') {{$message}} @enderror</span>
                 </div>
