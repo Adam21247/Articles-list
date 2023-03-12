@@ -8,7 +8,11 @@
 
 
 <body>
+<form action="{{ route('logout') }}" method="post">
+    @csrf
 
+    <button type="submit">Logout</button>
+</form>
 <h2 style="text-align: center">@lang('articles.admin.panel.articles')</h2>
 
 <a href="{{'/articles/add'}}">

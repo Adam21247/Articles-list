@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\LogoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,11 @@ Route::get('articles/{id}', [ArticleController::class, 'show'])->name('articles.
 Route::post('articles/comment/store', [ArticleController::class, 'addComment'])->name('comment.store');
 Route::get('articles/comment//delete/{id}', [ArticleController::class, 'destroyComment'])->name('comment.delete');
 
-Route::get('/login', [LoginController::class, 'login']);
+
 Route::get('/registration', [RegistrationController::class, 'registration']);
 Route::post('/register-user',[RegistrationController::class, 'registerUser'])->name('register-user');
 
-
+Route::get('/login', [LoginController::class, 'show']);
+Route::post('/login', [LoginController::class, 'handle'])->name('login');
+Route::post('/logout', [LogoutController::class, 'handle'])->name('logout');
 
