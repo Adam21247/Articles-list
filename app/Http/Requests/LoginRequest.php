@@ -4,7 +4,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Factory;
 
 class LoginRequest extends FormRequest
 {
@@ -32,7 +31,6 @@ class LoginRequest extends FormRequest
             'password' => 'required'
         ];
     }
-
 
 
     public function messages()

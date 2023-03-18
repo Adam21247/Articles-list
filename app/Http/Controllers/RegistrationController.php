@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Services\RegistrationService;
-use App\Models\User;
-use Laracasts\Flash\Flash;
+use Illuminate\View\View;
 
 class RegistrationController extends Controller
 {
@@ -14,6 +13,7 @@ class RegistrationController extends Controller
 
     /**
      * RegistrationController constructor.
+     * @param RegistrationService $registrationService
      */
     public function __construct(RegistrationService $registrationService)
     {
@@ -31,12 +31,10 @@ class RegistrationController extends Controller
         $input = $request->all();
         $res = $this->registrationService->save($input);
 
-
-
         if (!$res) {
             return view(trans('validation.reject_registration'));
         } else {
-            return redirect('login')->with('success','You have been registered');
+            return redirect('login')->with('success', 'You have been registered');
         }
     }
 }

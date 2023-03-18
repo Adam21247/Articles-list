@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-
 class LoginController extends Controller
 {
     public function show()
@@ -15,7 +9,7 @@ class LoginController extends Controller
         return view("auth.login");
     }
 
-    public function handle()
+    public function login()
     {
 
         $success = auth()->attempt([
@@ -23,12 +17,19 @@ class LoginController extends Controller
             'password' => request('password')
         ], request()->has('remember'));
 
-        if($success) {
+        if ($success) {
             return redirect()->to('articles');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('login');
     }
 }

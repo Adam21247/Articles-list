@@ -15,6 +15,7 @@
         @csrf
 
 
+
         <input type="text" name="title" placeholder=@lang('add.enter-title')>
 
 
@@ -23,7 +24,11 @@
 
         <textarea name="content" placeholder=@lang('add.enter-content')></textarea>
 
+        <input type="file"
+               name="image">
+
         <button type="submit">@lang('add.add-new-article')</button>
+
     </form>
 
 </div>
