@@ -92,6 +92,11 @@
                     <i
                         class="fa-solid fa-circle-chevron-up fa-color"></i></a>
             @endif</th>
+        <th>
+            <a class="header"
+               href="{{'/articles'}}"> @lang('articles.images-article')
+                </a>
+            </th>
         <th></th>
         <th></th>
         <th></th>
@@ -109,7 +114,8 @@
                 <td>{{$article->summary}}</td>
                 <td>{{$article->content}}</td>
                 <td>{{$article->created_at}}</td>
-{{--                <td><img src="/images/{{$article}}"></td>--}}
+                <td><img src="{{ asset('images/'.$article->image_path) }}" height="70px" width="70px" alt="image">
+                </td>
 
                 <td><a href={{"articles/edit/".$article['id']}}>@lang('common.edit')</a></td>
 
