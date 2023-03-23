@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Laracasts\Flash\Flash;
 
 
 class ArticleController extends Controller
@@ -39,17 +37,32 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->only('title', 'summary', 'content');
+
+        $request->validate([
+//            'image'=>'image|nullable|max: 1999'
+            'image' => 'mimes:jpg,png,webp,jpeg|max:2021'
+        ]);
+
+
+        $newImageName = time() . '-' . $request->name . '.' .
+            $request->image->extension();
+
+        $request->image->move(public_path('images'), $newImageName);
+
+
+        $input = $request->only('title', 'summary', 'content', 'image_path');
 
         $article = new Article();
         $article->title = $input['title'];
         $article->summary = $input['summary'];
         $article->content = $input['content'];
+        $article->image_path = $newImageName;
+
+
         $article->save();
 
         return redirect('articles');
     }
-
 
     public function show($id)
     {
@@ -109,7 +122,6 @@ class ArticleController extends Controller
 
         return back();
     }
-
 
 
 }

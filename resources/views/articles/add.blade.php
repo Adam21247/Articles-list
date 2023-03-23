@@ -8,7 +8,7 @@
 </a>
 
 <div class="addMember-box">
-    <form action="{{route(('articles.create'))}}" method="POST">
+    <form action="{{route(('articles.create'))}}" method="POST" enctype="multipart/form-data">
         <h1>@lang('add.add-articles')</h1>
 
         <p></p>
@@ -24,14 +24,18 @@
 
         <textarea name="content" placeholder=@lang('add.enter-content')></textarea>
 
-        <input type="file"
-               name="image">
+
 
         <button type="submit">@lang('add.add-new-article')</button>
 
-    </form>
+
 
 </div>
+    <div class="addPicture">
+        <input type="file" class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-400"
+               name="image">
+    </div>
+    </form>
 </div>
 
 

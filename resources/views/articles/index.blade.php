@@ -109,6 +109,7 @@
                 <td>{{$article->summary}}</td>
                 <td>{{$article->content}}</td>
                 <td>{{$article->created_at}}</td>
+{{--                <td><img src="/images/{{$article}}"></td>--}}
 
                 <td><a href={{"articles/edit/".$article['id']}}>@lang('common.edit')</a></td>
 

@@ -16,7 +16,9 @@ class Article extends Model
         'title',
         'summary',
         'content',
+        'image_path'
     ];
+
 
     public function comments()
     {
