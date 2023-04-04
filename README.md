@@ -1,12 +1,13 @@
 Project installation
+-----------
+* `docker-compose up -d`
+* `docker network create nginx-proxy`
+* `cp .env.example .env` 
+* `docker exec -i articles-system-laravel.test-1 composer install`
+* `docker exec -i articles-system-laravel.test-1 php artisan key:generate`
+* `docker exec -t articles-system-laravel.test-1 php artisan migrate:fresh --seed`
 
-docker-compose up -d
-docker network create nginx-proxy
-cp .env.example .env
-docker exec -i articles-system-laravel.test-1 composer install
-docker exec -i articles-system-laravel.test-1php artisan key:generate
-docker exec -t articles-system-laravel.test-1php artisan migrate:fresh --seed
+## Endpoints 
 
-Endpoints
-/api/articles/{id}
-/api/articles/author/{authorId}
+1. /api/articles/{id}
+2. /api/articles/author/{authorId}
