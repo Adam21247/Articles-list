@@ -10,6 +10,7 @@ return [
     'title-article' => 'TITLE',
     'summary-article' => 'SUMMARY',
     'content-article' => 'CONTENT',
+    'images-article'=>'IMAGE',
 
 
 ];

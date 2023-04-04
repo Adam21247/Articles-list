@@ -100,7 +100,7 @@
             @endif</th>
         <th>
             <a class="header"
-               href="{{'/articles'}}"> @lang('articles.images-article')
+               href="{{'/articles'}}"> @lang('common.images-article')
             </a>
         </th>
         <th></th>

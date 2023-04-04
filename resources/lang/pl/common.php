@@ -10,6 +10,7 @@ return [
     'title-article' => 'TYTUŁ',
     'summary-article' => 'STRESZCZENIE',
     'content-article' => 'ZAWARTOŚĆ',
+    'images-article'=>'OBRAZ',
 
 
 ];
