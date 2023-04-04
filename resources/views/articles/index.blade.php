@@ -41,10 +41,12 @@
 
 
             @if(request('sort') === 'desc')
-                <a class="header" href="{{'/articles'}}?sort=asc&perPage={{request('perPage')}}&sortBy=id">@lang('common.id')<i
+                <a class="header"
+                   href="{{'/articles'}}?sort=asc&perPage={{request('perPage')}}&sortBy=id">@lang('common.id')<i
                         class="fa-solid fa-circle-chevron-down fa-color"></i></a>
             @else
-                <a class="header" href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=id">@lang('common.id')<i
+                <a class="header"
+                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=id">@lang('common.id')<i
                         class="fa-solid fa-circle-chevron-up fa-color"></i></a>
             @endif
 
@@ -52,11 +54,13 @@
         <th>
             @if(request('sort') === 'desc')
                 <a class="header"
-                   href="{{'/articles'}}?sort=asc&perPage={{request('perPage')}}&sortBy=title"> @lang('common.title-article')<i
+                   href="{{'/articles'}}?sort=asc&perPage={{request('perPage')}}&sortBy=title"> @lang('common.title-article')
+                    <i
                         class="fa-solid fa-circle-chevron-down fa-color"></i></a>
             @else
                 <a class="header"
-                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=title"> @lang('common.title-article')<i
+                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=title"> @lang('common.title-article')
+                    <i
                         class="fa-solid fa-circle-chevron-up fa-color"></i></a>
             @endif
         </th>
@@ -67,7 +71,8 @@
                     <i class="fa-solid fa-circle-chevron-down fa-color"></i></a>
             @else
                 <a class="header"
-                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=summary"> @lang('common.summary-article')<i
+                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=summary"> @lang('common.summary-article')
+                    <i
                         class="fa-solid fa-circle-chevron-up fa-color"></i></a>
             @endif
         </th>
@@ -78,7 +83,8 @@
                     <i class="fa-solid fa-circle-chevron-down fa-color"></i></a>
             @else
                 <a class="header"
-                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=content"> @lang('common.content-article')<i
+                   href="{{'/articles'}}?sort=desc&perPage={{request('perPage')}}&sortBy=content"> @lang('common.content-article')
+                    <i
                         class="fa-solid fa-circle-chevron-up fa-color"></i></a>
             @endif</th>
         <th>
@@ -95,8 +101,8 @@
         <th>
             <a class="header"
                href="{{'/articles'}}"> @lang('articles.images-article')
-                </a>
-            </th>
+            </a>
+        </th>
         <th></th>
         <th></th>
         <th></th>
@@ -114,7 +120,7 @@
                 <td>{{$article->summary}}</td>
                 <td>{{$article->content}}</td>
                 <td>{{$article->created_at}}</td>
-                <td><img src="{{ asset('images/'.$article->image_path) }}" height="70px" width="70px" alt="image">
+                <td><img src="{{ asset('images/'.$article->image_name) }}" height="70px" width="70px" alt="image">
                 </td>
 
                 <td><a href={{"articles/edit/".$article['id']}}>@lang('common.edit')</a></td>

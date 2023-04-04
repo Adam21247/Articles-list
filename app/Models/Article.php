@@ -16,7 +16,7 @@ class Article extends Model
         'title',
         'summary',
         'content',
-        'image_path'
+        'image_name'
     ];
 
 

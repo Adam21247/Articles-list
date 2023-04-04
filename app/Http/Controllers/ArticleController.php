@@ -39,7 +39,6 @@ class ArticleController extends Controller
     {
 
         $request->validate([
-//            'image'=>'image|nullable|max: 1999'
             'image' => 'mimes:jpg,png,webp,jpeg|max:2021'
         ]);
 
@@ -50,13 +49,13 @@ class ArticleController extends Controller
         $request->image->move(public_path('images'), $newImageName);
 
 
-        $input = $request->only('title', 'summary', 'content', 'image_path');
+        $input = $request->only('title', 'summary', 'content', 'image_name');
 
         $article = new Article();
         $article->title = $input['title'];
         $article->summary = $input['summary'];
         $article->content = $input['content'];
-        $article->image_path = $newImageName;
+        $article->image_name = $newImageName;
 
 
         $article->save();
