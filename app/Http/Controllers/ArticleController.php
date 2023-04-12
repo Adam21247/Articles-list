@@ -43,10 +43,12 @@ class ArticleController extends Controller
         ]);
 
 
-        $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
+        $newImageName = time() . '-' . $request->name . '.';
 
-        $request->image->move(public_path('images'), $newImageName);
+        if ($request->has('image')) {
+            $request->image->extension();
+            $request->image->move(public_path('images'), $newImageName);
+        }
 
 
         $input = $request->only('title', 'summary', 'content', 'image_name');
