@@ -101,7 +101,8 @@ class ArticleController extends Controller
     {
         Article::destroy($id);
 
-        return redirect('articles');
+        return back();
+
     }
 
     public function addComment(Request $request)
