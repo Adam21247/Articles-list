@@ -11,7 +11,9 @@
 
 
 <body>
-<a href="{{"/articles"}}"><button>Back</button></a>
+<a href="{{ URL::previous() }}" ></i>
+    <button> @lang('common.back')</button>
+</a>
 
 <form action="{{route('comment.store')}}" method="POST">
     @csrf

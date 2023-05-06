@@ -1,9 +1,9 @@
 @extends('.articles.layout')
 
-<a href="{{"/articles"}}">
+
+<a href="{{ URL::previous() }}" ></i>
     <button> @lang('common.back')</button>
 </a>
-
 
 <div class="editMember-box">
     <h1>@lang('edit.update-data')</h1>
