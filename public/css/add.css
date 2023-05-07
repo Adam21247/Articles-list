@@ -75,8 +75,6 @@ button:hover {
 }
 
 .addPicture {
-    top: 25%;
-    left: 70%;
     position: absolute;
     transform: translate(-50%, -50%);
     width: 500px;
