@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 
 class ArticleController extends Controller
@@ -24,6 +25,8 @@ class ArticleController extends Controller
         $articles = Article::orderBy($sortBy, $sort)
             ->paginate($perPage);
 
+        Session::put('tasks_url', request()->fullUrl());
+
 
         return view('articles.index')->with('articles', $articles);
 
@@ -33,6 +36,7 @@ class ArticleController extends Controller
     public function add()
     {
         return view('articles.add');
+
     }
 
     public function store(Request $request)
@@ -61,8 +65,10 @@ class ArticleController extends Controller
 
 
         $article->save();
-
-        return redirect('articles');
+        if (\session('tasks_url')){
+            return redirect(\session('tasks_url'));
+        }
+        return view('articles');
     }
 
     public function show($id)
@@ -70,6 +76,7 @@ class ArticleController extends Controller
         $article = Article::find($id);
 
         return view('articles.show', ['article' => $article]);
+
     }
 
     public function edit($id)
@@ -77,6 +84,7 @@ class ArticleController extends Controller
         $article = Article::find($id);
 
         return view('articles.edit', ['article' => $article]);
+
     }
 
 
@@ -92,8 +100,12 @@ class ArticleController extends Controller
 
 
         $article->save();
+        if (\session('tasks_url')){
+        return redirect(\session('tasks_url'));
+        }
 
         return redirect('articles');
+
     }
 
 
