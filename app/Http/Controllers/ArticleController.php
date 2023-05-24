@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use function Symfony\Component\Cache\Traits\exists;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 
 class ArticleController extends Controller
@@ -65,7 +69,7 @@ class ArticleController extends Controller
 
 
         $article->save();
-        if (\session('tasks_url')){
+        if (\session('tasks_url')) {
             return redirect(\session('tasks_url'));
         }
         return view('articles');
@@ -92,52 +96,73 @@ class ArticleController extends Controller
     {
         $article = Article::find($request->id);
 
-        $input = $request->only('title', 'summary', 'content');
 
-        $article->title = $input['title'];
-        $article->summary = $input['summary'];
-        $article->content = $input['content'];
+            $input = $request->only('title', 'summary', 'content');
 
+            $article->title = $input['title'];
+            $article->summary = $input['summary'];
+            $article->content = $input['content'];
 
-        $article->save();
-        if (\session('tasks_url')){
-        return redirect(\session('tasks_url'));
+        if($request->has('image'))
+        {
+            $destination = 'public/images' . $article->image;
+            if(\Illuminate\Support\Facades\File::exists($destination))
+            {
+                \Illuminate\Support\Facades\File::delete($destination);
+            }
+            $file = $request->file('image');
+
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). '.' . $extension;
+            $file->move(public_path('images'), $filename);
+            $article->image_name = $filename;
         }
 
-        return redirect('articles');
 
-    }
+            $article->save();
+            if (\session('tasks_url')) {
+                return redirect(\session('tasks_url'));
+            }
 
+            return redirect('articles');
 
-    public function destroy($id)
-    {
-        Article::destroy($id);
-
-        return back();
-
-    }
-
-    public function addComment(Request $request)
-    {
-
-        if ($request->has('comment_content')) {
-            Comment::create(
-                ['comment_content' => $request->get('comment_content'),
-                    'article_id' => $request->get('id')
-                ]);
         }
 
-        return back();
+
+
+        public
+        function destroy($id)
+        {
+            Article::destroy($id);
+
+            return back();
+
+        }
+
+        public
+        function addComment(Request $request)
+        {
+
+            if ($request->has('comment_content')) {
+                Comment::create(
+                    ['comment_content' => $request->get('comment_content'),
+                        'article_id' => $request->get('id')
+                    ]);
+            }
+
+            return back();
+        }
+
+        public
+        function destroyComment($id)
+        {
+            Comment::destroy($id);
+
+            return back();
+        }
+
+
     }
 
-    public function destroyComment($id)
-    {
-        Comment::destroy($id);
-
-        return back();
-    }
-
-
-}
 
 
