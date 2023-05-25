@@ -26,6 +26,7 @@
             <th>@lang('common.title-article')</th>
             <th>@lang('common.summary-article')</th>
             <th>@lang('common.content-article')</th>
+            <th>@lang('common.images-article')</th>
 
         </tr>
         </thead>
@@ -36,6 +37,7 @@
         <td>{{$article->title}}</td>
         <td>{{$article->summary}}</td>
         <td>{{$article->content}}</td>
+        <td><img src="{{ asset('images/'.$article->image_name) }}" height="200px" width="250px" alt="image"></td>
 
     </tr>
 </table>

@@ -26,7 +26,7 @@
                     </form>
 
                     <div id="imagePreview">
-                        <td><img src="{{ asset('images/'.$article->image_name) }}" height="100px" width="150px"
+                        <td><img src="{{ asset('images/'.$article->image_name) }}" height="300px" width="500px"
                                  alt="image"></td>
                     </div>
 
