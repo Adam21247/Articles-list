@@ -15,7 +15,7 @@
         <input type="text" name="title" value="{{$article['title']}}"><br>
         <textarea type="text" name="summary">{{$article['summary']}} </textarea>
         <textarea type="text" name="content">{{$article['content']}} </textarea>
-        <form method="post"  enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-4"></div>
@@ -25,10 +25,49 @@
                         <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
                     </form>
 
-                    <div id="imagePreview"></div>
-        <div><td><img src="{{ asset('images/'.$article->image_name) }}" height="100px" width="150px" alt="image"></td></div>
+                    <div id="imagePreview">
+                        <td><img src="{{ asset('images/'.$article->image_name) }}" height="100px" width="150px"
+                                 alt="image"></td>
+                    </div>
 
-        <button type="submit">@lang('edit.update')</button>
+
+                    <script>
+                        function previewImage(event) {
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                var imagePreview = document.getElementById('imagePreview');
+                                var image = new Image();
+                                image.src = reader.result;
+                                image.onload = function () {
+                                    var canvas = document.createElement('canvas');
+                                    var ctx = canvas.getContext('2d');
+                                    var width = image.width;
+                                    var height = image.height;
+                                    var max_size = 500;
+                                    if (width > height) {
+                                        if (width > max_size) {
+                                            height *= max_size / width;
+                                            width = max_size;
+                                        }
+                                    } else {
+                                        if (height > max_size) {
+                                            width *= max_size / height;
+                                            height = max_size;
+                                        }
+                                    }
+                                    canvas.width = width;
+                                    canvas.height = height;
+                                    ctx.drawImage(image, 0, 0, width, height);
+                                    var dataUrl = canvas.toDataURL('image/jpeg');
+                                    imagePreview.innerHTML = '<img src="' + dataUrl + '" width="' + width + '" height="' + height + '">';
+                                }
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+                    </script>
+
+
+                    <button type="submit">@lang('edit.update')</button>
 
 
                 </div>
