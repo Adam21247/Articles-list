@@ -24,6 +24,16 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
     }
+//
+//    public function categories(){
+//        return $this->belongsToMany(Category::class, 'article_category', 'article_id','category_id');
+//    }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'article_category');
+    }
+
+
 
 }
 

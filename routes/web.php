@@ -31,6 +31,7 @@ Route::middleware('auth:web')->group(function () {
     Route::post('articles/comment/store', [ArticleController::class, 'addComment'])->name('comment.store');
     Route::get('articles/comment//delete/{id}', [ArticleController::class, 'destroyComment'])->name('comment.delete');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 });
 
 Route::controller(RegistrationController::class)->group(function () {

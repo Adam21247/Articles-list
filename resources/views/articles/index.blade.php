@@ -132,8 +132,9 @@
 
                 @endforeach
             </tr>
-
+        </a>
 </table>
+
 
 {{ $articles->appends(request()->query())->links() }}
 </body>

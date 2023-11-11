@@ -73,7 +73,8 @@
                         <button type="submit">@lang('add.add-new-article')</button>
                     </div>
 
-
+                </div>
+            </form>
             </form>
     </div>
 </div>
