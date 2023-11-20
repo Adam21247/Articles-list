@@ -11,26 +11,12 @@ return new class extends Migration
      *
      * @return void
      */
-    const CATEGORIES = [
-        ['name' => 'Sport'],
-        ['name' => 'Politics'],
-        ['name' => 'Lifestyle'],
-        ['name' => 'News'],
-        ['name' => 'Weather'],
-        ['name' => 'Economy'],
-        ['name' => 'Health'],
-        ['name' => 'Travel'],
-        ['name' => 'Opinion'],
-    ];
-
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
         });
-
-        \Illuminate\Support\Facades\DB::table('categories')->insert(self::CATEGORIES);
     }
 
     /**

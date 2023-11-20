@@ -20,12 +20,5 @@ class ArticleSeeder extends Seeder
         Article::factory()
             ->count(50)
             ->create();
-
-
-//        DB::table('articles')->insert([
-//            'title' => Str::random(10),
-//            'summary' => Str::random(100),
-//            'content' => Str::random(300),
-//        ]);
     }
 }
