@@ -4,20 +4,66 @@
 namespace App\Http\Services;
 
 use App\Models\Article;
-use App\Models\Category;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 
 class ArticlesApiService
 {
-        public function getAllArticles(){
-            $articles = Article::all();
-            foreach ($articles as $article) {
-                if ($article->image_name == null && $article->created_at == $article->updated_at) {
-                    return response()->json($articles->load('categories', 'comments')->makeHidden(['image_name', 'updated_at'])->toArray());
-                }
-                return response()->json($articles->load('categories', 'comments')->toArray());
-            }
+
+    public function getAllArticles()
+    {
+        $articles = Article::all();
+        return response()->json($articles->load('categories', 'comments')->toArray());
+    }
+
+    public function getArticleById($id)
+    {
+        $article = Article::find($id);
+        return response()->json($article->load('categories', 'comments')->toArray());
+
+    }
+
+    public function deleteArticle($id)
+    {
+        $article = Article::find($id);
+        $article->delete();
+
+        if ($article) {
+            return ["article" => "record has been deleted"];
+        } else {
+            return ["article" => "record has not been deleted"];
         }
+    }
+
+    public function addArticle(Request $request)
+    {
+        $input = $request->only('title', 'summary', 'content', 'categories');
+
+        $article = new Article();
+
+        $article->title = $input['title'];
+        $article->summary = $input['summary'];
+        $article->content = $input['content'];
+        $article->save();
+        $article->categories()->attach(Arr::pluck($input['categories'], 'id'));
+
+        return response()->json(['message' => 'Added successfully'], 201);
+    }
+
+
+    public function editArticle(Request $request)
+    {
+        $article = Article::find($request->id);
+
+        $input = $request->only('title', 'summary', 'content', 'categories');
+
+        $article->title = $input['title'];
+        $article->summary = $input['summary'];
+        $article->content = $input['content'];
+        $article->save();
+        $article->categories()->sync(Arr::pluck($input['categories'], 'id'));
+
+        return response()->json(['message' => 'Updated successfully'], 201);
+    }
 }

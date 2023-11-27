@@ -27,7 +27,7 @@ class CategorySeeder extends Seeder
 
     public function run()
     {
-        $this->faker = Faker::create();
+
 
         DB::table('categories')->insert(self::CATEGORIES);
 
