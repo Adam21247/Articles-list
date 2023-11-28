@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ArticleWebService;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -11,26 +12,15 @@ use Illuminate\Support\Facades\Session;
 
 class ArticleController extends Controller
 {
+    private ArticleWebService $articleWebService;
+
+    public function __construct(ArticleWebService $articleWebService){
+        $this->articleWebService = $articleWebService;
+    }
+
     public function index(Request $request)
     {
-        $perPage = $request->query('perPage');
-        $perPage !== null ? $perPage = $perPage : $perPage = 25;
-
-
-        $sort = $request->query('sort');
-        $sort !== null ? $sort = $sort : $sort = 'asc';
-
-        $sortBy = $request->query('sortBy');
-        $sortBy !== null ? $sortBy = $sortBy : $sortBy = 'id';
-
-        $articles = Article::orderBy($sortBy, $sort)
-            ->paginate($perPage);
-
-        Session::put('tasks_url', request()->fullUrl());
-
-
-        return view('articles.index')->with('articles', $articles);
-
+        return $this->articleWebService->showMainPage($request);
     }
 
 
@@ -124,8 +114,7 @@ class ArticleController extends Controller
     }
 
 
-    public
-    function destroy($id)
+    public function destroy($id)
     {
         Article::destroy($id);
 
@@ -133,8 +122,7 @@ class ArticleController extends Controller
 
     }
 
-    public
-    function addComment(Request $request)
+    public function addComment(Request $request)
     {
 
         if ($request->has('comment_content')) {
@@ -147,8 +135,7 @@ class ArticleController extends Controller
         return back();
     }
 
-    public
-    function destroyComment($id)
+    public function destroyComment($id)
     {
         Comment::destroy($id);
 

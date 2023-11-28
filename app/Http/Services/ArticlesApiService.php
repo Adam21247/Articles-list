@@ -46,7 +46,7 @@ class ArticlesApiService
         $article->summary = $input['summary'];
         $article->content = $input['content'];
         $article->save();
-        $article->categories()->attach(Arr::pluck($input['categories'], 'id'));
+        $article->categories()->attach($this->getArrayOfIds($input['categories']));
 
         return response()->json(['message' => 'Added successfully'], 201);
     }
@@ -62,8 +62,17 @@ class ArticlesApiService
         $article->summary = $input['summary'];
         $article->content = $input['content'];
         $article->save();
-        $article->categories()->sync(Arr::pluck($input['categories'], 'id'));
+        $article->categories()->sync($this->getArrayOfIds($input['categories']));
 
         return response()->json(['message' => 'Updated successfully'], 201);
+    }
+
+    /**
+     * @param $categories
+     * @return array
+     */
+    private function getArrayOfIds($categories): array
+    {
+        return Arr::pluck($categories, 'id');
     }
 }

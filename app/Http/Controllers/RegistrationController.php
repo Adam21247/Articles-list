@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Services\RegistrationService;
-use Illuminate\View\View;
 
 class RegistrationController extends Controller
 {
 
-    private $registrationService;
+    private RegistrationService $registrationService;
 
     /**
      * RegistrationController constructor.
