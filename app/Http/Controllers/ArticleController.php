@@ -45,7 +45,6 @@ class ArticleController extends Controller
             $request->image->move(public_path('images'), $newImageName);
         }
 
-
         $input = $request->only('title', 'summary', 'content', 'image_name');
 
         $article = new Article();

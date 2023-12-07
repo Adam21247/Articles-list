@@ -3,6 +3,7 @@
 
 namespace App\Http\Services;
 
+
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,12 +15,17 @@ class ArticlesApiService
     public function getAllArticles()
     {
         $articles = Article::all();
+        foreach ($articles as $article) {
+            $article->image_url = url("/images/" . $article->image_name);
+        }
         return response()->json($articles->load('categories', 'comments')->toArray());
     }
+
 
     public function getArticleById($id)
     {
         $article = Article::find($id);
+        $article->image_url = url("/images" . $article->image_name);
         return response()->json($article->load('categories', 'comments')->toArray());
 
     }
@@ -75,4 +81,6 @@ class ArticlesApiService
     {
         return Arr::pluck($categories, 'id');
     }
+
+
 }
