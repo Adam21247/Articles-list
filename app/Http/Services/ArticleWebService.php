@@ -33,4 +33,38 @@ class ArticleWebService
         return view('articles.index')->with('articles', $articles);
     }
 
+    public function addArticle(Request $request){
+
+        $request->validate([
+            'addedImage' => 'mimes:jpg,png,webp,jpeg'
+        ]);
+
+
+        if ($request->has('addedImage')){
+            $ImageName = $request->addedImage->getClientOriginalName();
+            $request->file('addedImage')->move(public_path('/images'), $ImageName);
+        } else {
+            $ImageName = null;
+        }
+
+        $input = $request->only('title', 'summary', 'content', 'image_name', 'categories');
+
+        $article = new Article();
+        $article->title = $input['title'];
+        $article->summary = $input['summary'];
+        $article->content = $input['content'];
+        $article->image_name = $ImageName;
+        $article->save();
+
+        $article->categories()->attach($input['categories']);
+
+
+        if (session('tasks_url')) {
+            return redirect(session('tasks_url'));
+        }
+
+
+        return view('articles');
+    }
+
 }

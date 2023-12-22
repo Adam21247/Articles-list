@@ -36,36 +36,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'addedImage' => 'mimes:jpg,png,webp,jpeg'
-        ]);
-
-
-        $ImageName = $request->addedImage->getClientOriginalName();
-
-        if ($request->has('addedImage')) {
-            $request->addedImage->extension();
-            $request->addedImage->move(public_path('images'), $ImageName);
-        }
-
-        $input = $request->only('title', 'summary', 'content', 'image_name', 'categories');
-
-        $article = new Article();
-        $article->title = $input['title'];
-        $article->summary = $input['summary'];
-        $article->content = $input['content'];
-        $article->image_name = $ImageName;
-        $article->save();
-
-        $article->categories()->attach($input['categories']);
-
-
-        if (session('tasks_url')) {
-            return redirect(session('tasks_url'));
-        }
-
-
-        return view('articles');
+       return $this->articleWebService->addArticle($request);
     }
 
     public function show($id)
