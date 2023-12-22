@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ArticleWebService;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Session;
+use function session;
 
 
 class ArticleController extends Controller
 {
     private ArticleWebService $articleWebService;
 
-    public function __construct(ArticleWebService $articleWebService){
+    public function __construct(ArticleWebService $articleWebService)
+    {
         $this->articleWebService = $articleWebService;
     }
 
@@ -26,7 +28,8 @@ class ArticleController extends Controller
 
     public function add()
     {
-        return view('articles.add');
+        $categories = Category::all();
+        return view('articles.add', ['categories' => $categories]);
 
     }
 
@@ -34,30 +37,34 @@ class ArticleController extends Controller
     {
 
         $request->validate([
-            'image' => 'mimes:jpg,png,webp,jpeg|max:2021'
+            'addedImage' => 'mimes:jpg,png,webp,jpeg'
         ]);
 
 
-        $newImageName = time() . '-' . $request->name . '.';
+        $ImageName = $request->addedImage->getClientOriginalName();
 
-        if ($request->has('image')) {
-            $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
+        if ($request->has('addedImage')) {
+            $request->addedImage->extension();
+            $request->addedImage->move(public_path('images'), $ImageName);
         }
 
-        $input = $request->only('title', 'summary', 'content', 'image_name');
+        $input = $request->only('title', 'summary', 'content', 'image_name', 'categories');
 
         $article = new Article();
         $article->title = $input['title'];
         $article->summary = $input['summary'];
         $article->content = $input['content'];
-        $article->image_name = $newImageName;
-
-
+        $article->image_name = $ImageName;
         $article->save();
-        if (\session('tasks_url')) {
-            return redirect(\session('tasks_url'));
+
+        $article->categories()->attach($input['categories']);
+
+
+        if (session('tasks_url')) {
+            return redirect(session('tasks_url'));
         }
+
+
         return view('articles');
     }
 
@@ -104,8 +111,8 @@ class ArticleController extends Controller
 
 
         $article->save();
-        if (\session('tasks_url')) {
-            return redirect(\session('tasks_url'));
+        if (session('tasks_url')) {
+            return redirect(session('tasks_url'));
         }
 
         return redirect('articles');
@@ -140,7 +147,6 @@ class ArticleController extends Controller
 
         return back();
     }
-
 
 }
 
