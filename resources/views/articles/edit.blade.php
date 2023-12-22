@@ -10,7 +10,6 @@
 
     <form action="{{route('articles.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <input type="hidden" name="id" value="{{$article['id']}}">
         <input type="text" name="title" value="{{$article['title']}}"><br>
         <textarea type="text" name="summary">{{$article['summary']}} </textarea>

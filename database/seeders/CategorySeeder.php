@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class CategorySeeder extends Seeder
 {
-    const CATEGORIES = [
+    private const CATEGORIES = [
         ['name' => 'Sport'],
         ['name' => 'Politics'],
         ['name' => 'Lifestyle'],
