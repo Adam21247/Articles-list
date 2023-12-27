@@ -7,8 +7,6 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use function session;
 
 
 class ArticleController extends Controller
@@ -42,9 +40,9 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
+        $selectedCategories = $article->categories;
 
-        return view('articles.show', ['article' => $article]);
-
+        return view('articles.show', compact('article', 'selectedCategories'));
     }
 
     public function edit($id)
@@ -58,36 +56,7 @@ class ArticleController extends Controller
 
     public function update(Request $request)
     {
-        $article = Article::find($request->id);
-
-
-        $input = $request->only('title', 'summary', 'content', 'categories');
-
-        $article->title = $input['title'];
-        $article->summary = $input['summary'];
-        $article->content = $input['content'];
-
-        if ($request->has('image')) {
-            $destination = 'images' . $article->image;
-            if (File::exists($destination)) {
-                File::delete($destination);
-            }
-            $file = $request->file('image');
-
-            $extension = $file->getClientOriginalName();
-            $filename = $extension;
-            $file->move(public_path('images'), $filename);
-            $article->image_name = $filename;
-        }
-
-        $article->save();
-        $article->categories()->sync($input['categories']);
-        if (session('tasks_url')) {
-            return redirect(session('tasks_url'));
-        }
-
-        return redirect('articles');
-
+        return $this->articleWebService->editArticle($request);
     }
 
 

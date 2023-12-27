@@ -24,6 +24,7 @@
         <tr>
             <th>@lang('common.id')</th>
             <th>@lang('common.title-article')</th>
+            <th>@lang('common.categories-article')</th>
             <th>@lang('common.summary-article')</th>
             <th>@lang('common.content-article')</th>
             <th>@lang('common.images-article')</th>
@@ -32,13 +33,19 @@
         </thead>
 
     <tr>
-
         <td>{{$article->id}}</td>
         <td>{{$article->title}}</td>
+        <td>
+            @foreach($selectedCategories as $category)
+                <option
+                    value="{{ $category->id }}" {{ $selectedCategories->contains($category->id) ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </td>
         <td>{{$article->summary}}</td>
         <td>{{$article->content}}</td>
         <td><img src="{{ asset('images/'.$article->image_name) }}" height="200px" width="250px" alt="image"></td>
-
     </tr>
 </table>
 

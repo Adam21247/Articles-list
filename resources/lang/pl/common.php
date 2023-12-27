@@ -8,6 +8,7 @@ return [
     'back' => 'Cofnij',
     'id' => 'ID',
     'title-article' => 'TYTUŁ',
+    'categories-article' => 'KATEGORIE',
     'summary-article' => 'STRESZCZENIE',
     'content-article' => 'ZAWARTOŚĆ',
     'images-article'=>'OBRAZ',
