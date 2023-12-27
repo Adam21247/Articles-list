@@ -36,7 +36,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
-       return $this->articleWebService->addArticle($request);
+        return $this->articleWebService->addArticle($request);
     }
 
     public function show($id)
@@ -50,9 +50,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::find($id);
-
-        return view('articles.edit', ['article' => $article]);
-
+        $allCategories = Category::all();
+        $selectedCategories = $article->categories;
+        return view('articles.edit', compact('article', 'allCategories', 'selectedCategories'));
     }
 
 
@@ -61,7 +61,7 @@ class ArticleController extends Controller
         $article = Article::find($request->id);
 
 
-        $input = $request->only('title', 'summary', 'content');
+        $input = $request->only('title', 'summary', 'content', 'categories');
 
         $article->title = $input['title'];
         $article->summary = $input['summary'];
@@ -74,14 +74,14 @@ class ArticleController extends Controller
             }
             $file = $request->file('image');
 
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
+            $extension = $file->getClientOriginalName();
+            $filename = $extension;
             $file->move(public_path('images'), $filename);
             $article->image_name = $filename;
         }
 
-
         $article->save();
+        $article->categories()->sync($input['categories']);
         if (session('tasks_url')) {
             return redirect(session('tasks_url'));
         }
