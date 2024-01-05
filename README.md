@@ -21,8 +21,8 @@ Project installation
 
 ## API Endpoints 
 
-1. api/articles
-2. api/articles/{id}
-3. api/articles/delete/{id}
-4. api/articles/store
-5. api/articles/{id}/update
+1. /api/articles
+2. /api/articles/{id}
+3. /api/articles/delete/{id}
+4. /api/articles/store
+5. /api/articles/{id}/update
